@@ -1,5 +1,10 @@
 import os
-os.chdir("C:\\Users\\szavodko.DEV\\Desktop\\renamer\\")
+import hashlib
 for filename in os.listdir("."):
     if not filename.endswith(".py"):
-        os.rename(filename,"renamed_"+filename)
+        hasher = hashlib.sha1()
+        with open(filename, 'rb') as afile:
+            buf = afile.read()
+            hasher.update(buf)
+            print(hasher.hexdigest())
+        os.rename(filename,hasher.hexdigest() + " string " + filename)
